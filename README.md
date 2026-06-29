@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+#  Khayeryab-platform
+A donation facilitation platform connecting donors with charities
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 About the Project
 
-## About Laravel
+Kheiryab is a web-based platform designed to bridge the gap between donors and verified charities. Charities register with official documentation, undergo admin approval, and are then publicly listed. Donors can browse approved charities, view their needs, and submit donations of surplus items. Each donation passes through a structured workflow — from submission and charity review to delivery confirmation — ensuring transparency and accountability throughout the process.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The system features a professional admin panel with full oversight: approve or reject charity registrations, manage users, record donor violations, view comprehensive statistics and charts, and configure platform settings. Built with Laravel 11 and a clean, responsive Tailwind CSS interface, Kheiryab delivers a practical and scalable solution for facilitating charitable giving in a structured, trustworthy environment.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Dual Registration:** Separate registration flows for donors and charities
+- **Admin Approval:** Charity documents reviewed before public listing
+- **Donation Submission:** Donors submit items with title, description, category, delivery method and date
+- **Donation Workflow:** Charities approve/reject donations, track delivery status, and record reasons
+- **Violation System:** Automatic violation points when donors fail to deliver, with admin override
+- **Preferred Items:** Charities list needed items with priority levels
+- **Password Recovery:** Password reset via mobile number verification
+- **Professional Admin Panel:** Dashboard with statistics, charts, user management, violation recording, and settings
+- **FAQs Page:** Tabbed FAQ section for both donors and charities
+- **Responsive UI:** Tailwind CSS with RTL Persian support, sidebar navigation, and gradient design
 
-## Learning Laravel
+## 🛠 Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend:** Laravel 11, PHP 8.2
+- **Frontend:** Blade, Tailwind CSS, Chart.js, Font Awesome 6
+- **Database:** MySQL / MariaDB
+- **Authentication:** Laravel Breeze (customized for mobile login)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 👥 User Roles
 
-## Laravel Sponsors
+| Role | Capabilities |
+|------|-------------|
+| **Donor** | Register, verify mobile number, browse approved charities, submit donations, track donation status, view violation points, edit profile, change mobile number |
+| **Charity** | Register with official documents, await admin approval, view received donations, approve/reject/mark delivery status, manage preferred items, edit profile with logo, auto-suspend on sensitive data changes |
+| **Admin** | Hidden login route, full dashboard with stats & charts, approve/reject charities, activate/deactivate users, record manual violations, view all donations, manage admins |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📊 Core database tables
 
-### Premium Partners
+6 main tables with Eloquent relationships:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+| Table | Description |
+|-------|-------------|
+| `users` | Central user entity with role-based access (donor, charity, admin) |
+| `charities` | Charity profile with registration documents, approval status |
+| `donations` | Donation records with workflow status and delivery tracking |
+| `preferred_items` | Charity-requested items with priority levels |
+| `phone_verifications` | Independent OTP codes linked via session |
+| `violations` | OTP codes stored temporarily for mobile verification (simulated in dev, ready for real SMS) |
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🚀 Installation
 
-## Code of Conduct
+```bash
+git clone https://github.com/rajabzade357/khayeryab-platform.git
+cd khayeryab-platform
+composer install
+cp .env.example .env
+npm install
+npm run build
+php artisan key:generate
+# Configure your database credentials in the .env file
+php artisan migrate --seed
+php artisan storage:link
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📁 Project Structure
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/             
+│   │   ├── Auth/              
+│   └── Middleware/
+│       └── AdminMiddleware.php
+│
+├── Models/
+│
+resources/
+├── views/
+│   ├── admin/
+│   ├── auth/
+│   ├── charity/
+│   ├── donor/
+│   └── public/
+│
+routes/
+├── web.php
+└── auth.php
+|
+database/
+├── migrations/
+├── seeders/
+└── factories/
